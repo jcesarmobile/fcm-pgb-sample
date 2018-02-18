@@ -32,14 +32,30 @@ var app = {
 
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
         console.log('Received Event: ' + id);
+
+        FCMPlugin.onTokenRefresh(function(token){
+            console.log(token);
+            document.getElementById("registration").appendChild(document.createTextNode(token));
+        });
+
+        FCMPlugin.getToken(function(token){
+            console.log(token);
+            document.getElementById("registration").appendChild(document.createTextNode(token));
+        });
+
+        FCMPlugin.onNotification(function(data){
+            var ul = document.getElementById("pushList");
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(data.message));
+            ul.appendChild(li);
+            console.log(data.message);
+            console.log(data.title);
+            console.log(data.count);
+            console.log(data.sound);
+            console.log(data.image);
+            console.log(data.additionalData);
+        });
     }
 };
 
