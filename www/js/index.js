@@ -47,14 +47,8 @@ var app = {
         FCMPlugin.onNotification(function(data){
             var ul = document.getElementById("pushList");
             var li = document.createElement("li");
-            li.appendChild(document.createTextNode(data.message));
+            li.appendChild(document.createTextNode(JSON.stringify(data)));
             ul.appendChild(li);
-            console.log(data.message);
-            console.log(data.title);
-            console.log(data.count);
-            console.log(data.sound);
-            console.log(data.image);
-            console.log(data.additionalData);
         });
     }
 };
